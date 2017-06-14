@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".loadGamelist">
         </activity>
+        <activity android:name=".createDeck">
+        </activity>
     </application>
 
 </manifest>

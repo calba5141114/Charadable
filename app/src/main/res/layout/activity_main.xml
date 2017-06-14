@@ -24,7 +24,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="203dp"
         android:layout_height="67dp"
-        android:layout_marginBottom="178dp"
+        android:layout_marginBottom="176dp"
         android:text="Create Deck"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"

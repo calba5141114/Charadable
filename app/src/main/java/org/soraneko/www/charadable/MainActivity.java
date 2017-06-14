@@ -1,6 +1,5 @@
 package org.soraneko.www.charadable;
 
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +8,21 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button createDeck = (Button)findViewById(R.id.createDeck);
-    Button loadGame = (Button) findViewById(R.id.loadGame);
+    Button createDeckButton;
+    Button loadGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createDeckButton = (Button) findViewById(R.id.createDeck);
+        loadGameButton = (Button) findViewById(R.id.loadGame);
+        loadGameHandler();
+        createDeckHandler();
     }
-
+    //loads list of games
     public void loadGameHandler (){
-        loadGame.setOnClickListener(new View.OnClickListener() {
+        loadGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
               Intent loadgameintent = new Intent(MainActivity.this, loadGamelist.class);
@@ -31,19 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
     //needs functions to work properly
     public void createDeckHandler (){
-        createDeck.setOnClickListener(new View.OnClickListener() {
+        createDeckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent loaddeckintent = new Intent(MainActivity.this, createDeck.class);
+                startActivity(loaddeckintent);
             }
         });
 
     }
-
-
-
-
-
-
 
 }
