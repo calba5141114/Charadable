@@ -1,10 +1,13 @@
 package org.soraneko.www.charadable;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,18 +19,29 @@ public class loadGamelist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_gamelist);
 
-        ListView listView = (ListView) findViewById(R.id.deckList);
+        final ListView listView = (ListView) findViewById(R.id.deckList);
+
         ArrayList<File> decks = getListFiles(new File(getFilesDir().toString()));
         String[] namesOfFiles = new String[decks.size()];
         for (int i = 0; i < namesOfFiles.length; i++)
         {
             String title = decks.get(i).getName();
-            namesOfFiles[i] = title.substring(0, title.lastIndexOf('.'));
+            namesOfFiles[i] = title.substring(0, title.lastIndexOf("."));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, namesOfFiles);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                int itemPos = listView.getSelectedItemPosition();
+                Intent loadGameIntent = new Intent(loadGamelist.this, Game.class);
+                startActivity(loadGameIntent);
+
+            }
+        });
 
     }
 

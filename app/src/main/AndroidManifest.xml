@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".createDeck">
         </activity>
+        <activity android:name=".Game">
+        </activity>
     </application>
 
 </manifest>
