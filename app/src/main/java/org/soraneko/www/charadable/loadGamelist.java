@@ -36,8 +36,12 @@ public class loadGamelist extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
-                int itemPos = listView.getSelectedItemPosition();
+                ArrayList<File> decks = getListFiles(new File(getFilesDir().toString()));
                 Intent loadGameIntent = new Intent(loadGamelist.this, Game.class);
+                FileIO tempIO = new FileIO();
+
+                Deck deckToLoad = tempIO.readDeck(decks.get(position));
+                loadGameIntent.putExtra("deck", deckToLoad);
                 startActivity(loadGameIntent);
 
             }

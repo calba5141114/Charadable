@@ -68,7 +68,7 @@ public class FileIO extends AppCompatActivity {
     }
 
     // Use to read in a Deck object
-    public Deck readDeck(String filepath, String filename)
+    public Deck readDeck(File file)
     {
         Deck temp = null;
         FileInputStream fin = null;
@@ -76,8 +76,7 @@ public class FileIO extends AppCompatActivity {
 
         try
         {
-            File file = new File(filepath, filename);
-            fin = openFileInput(file.toString());
+            fin = new FileInputStream(file);
             ois = new ObjectInputStream(fin);
             temp = (Deck) ois.readObject();
         } catch (Exception ex) {
