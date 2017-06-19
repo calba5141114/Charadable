@@ -17,12 +17,12 @@ public class RunnableAccel implements Runnable
     public RunnableAccel(OrientationData orienData)
     {
         orientationData = orienData;
-        Log.d("I", "Accelerameter Thread Created");
+        Log.e("E", "Accelerameter Thread Created");
     }
 
     public void start()
     {
-        Log.d("I", "Starting an accelerameter thread");
+        Log.e("E", "Starting an accelerameter thread");
         if (t == null)
         {
             t = new Thread(this, "AccelThread");
@@ -41,9 +41,10 @@ public class RunnableAccel implements Runnable
     {
         while(running)
         {
-            Log.d("I", "Accel thread still running");
+            float pitch = orientationData.getPitch();
+            Log.e("E", Float.toString(pitch));
         }
 
-        Log.d("I", "Accel thread stopping");
+        Log.e("E", "Accel thread stopping");
     }
 }

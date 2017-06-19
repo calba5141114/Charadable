@@ -16,17 +16,39 @@ import android.provider.SyncStateContract;
 public class OrientationData implements SensorEventListener
 {
 
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private float[] mGravity;
+    private float[] mGeomagnetic;
+    private float azimut;
+    private float pitch;
+    private float roll;
 
-    public OrientationData(SensorManager sensorManager)
+    public OrientationData(SensorManager senManager)
     {
-
+        mSensorManager = senManager;
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
+    public void onResume()
+    {
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public void onPause()
+    {
+        mSensorManager.unregisterListener(this);
+    }
+
+    public float getPitch()
+    {
+        return pitch;
+    }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent)
     {
-
+        pitch = sensorEvent.values[1];
     }
 
     @Override
@@ -34,4 +56,6 @@ public class OrientationData implements SensorEventListener
     {
 
     }
+
+
 }

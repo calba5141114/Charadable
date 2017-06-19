@@ -1,12 +1,12 @@
 package org.soraneko.www.charadable;
 
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.Collections;
  * - pitch tilts device up
  */
 
-public class Game extends AppCompatActivity
+public class GameManager extends AppCompatActivity
 {
 
     private ArrayList<String> cards;
@@ -49,9 +49,9 @@ public class Game extends AppCompatActivity
         timer = (TextView) findViewById(R.id.timer);
         text = (TextView) findViewById(R.id.timer);
 
-        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        orientationData = new OrientationData(sensorManager);
-
+        SensorManager mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        orientationData = new OrientationData(mSensorManager);
+        orientationData.onResume();
         accelThread = new RunnableAccel(orientationData);
         accelThread.start();
 
@@ -68,7 +68,7 @@ public class Game extends AppCompatActivity
 
             public void onFinish()
             {
-                text.setText("Game starting");
+                text.setText("GameManager starting");
             }
         }.start();
 
@@ -81,7 +81,7 @@ public class Game extends AppCompatActivity
 
             public void onFinish()
             {
-                text.setText("Game ended");
+                text.setText("GameManager ended");
                 gameOver();
             }
         }.start();
@@ -97,12 +97,13 @@ public class Game extends AppCompatActivity
 
     private void gameOver()
     {
-        Intent loadGameOverIntent = new Intent(Game.this, GameOver.class);
+        Intent loadGameOverIntent = new Intent(GameManager.this, GameOver.class);
         loadGameOverIntent.putExtra("skipped", skippedCards);
         loadGameOverIntent.putExtra("numberOfCards", numberOfCards);
         loadGameOverIntent.putExtra("numberOfSkippedCards", numberOfSkippedCards);
         loadGameOverIntent.putExtra("numberOfRightCards", numberOfRightCards);
         accelThread.stop();
+        orientationData.onPause();
         startActivity(loadGameOverIntent);
     }
 

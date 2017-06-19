@@ -11,61 +11,86 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Number Skipped"
-        tools:layout_editor_absoluteX="209dp"
-        tools:layout_editor_absoluteY="295dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="199dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Number Correct"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="295dp" />
+        android:layout_marginLeft="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="198dp" />
 
     <TextView
         android:id="@+id/textNumberSkipped"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="324dp" />
+        android:layout_marginRight="69dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="169dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cards Skipped"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="28dp" />
+        android:layout_marginRight="278dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/numberCorrectTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="324dp" />
+        android:layout_marginLeft="41dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="168dp" />
 
     <Button
         android:id="@+id/mainMenu"
         android:layout_width="187dp"
         android:layout_height="40dp"
         android:text="Main Menu"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="424dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="42dp" />
 
     <Button
         android:id="@+id/playAgain"
         android:layout_width="187dp"
         android:layout_height="40dp"
         android:text="Play Again"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="368dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="96dp"
+        app:layout_constraintHorizontal_bias="0.502" />
 
     <ListView
         android:id="@+id/listViewSkipped"
         android:layout_width="345dp"
         android:layout_height="219dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="57dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="230dp"
+        android:layout_marginRight="19dp"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

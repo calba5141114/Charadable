@@ -23,7 +23,7 @@
         <activity android:name=".createDeck"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Game"
+        <activity android:name=".GameManager"
             android:screenOrientation="landscape">
         </activity>
         <activity android:name=".GameOver">

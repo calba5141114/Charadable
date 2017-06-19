@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class loadGamelist extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 ArrayList<File> decks = getListFiles(new File(getFilesDir().toString()));
-                Intent loadGameIntent = new Intent(loadGamelist.this, Game.class);
+                Intent loadGameIntent = new Intent(loadGamelist.this, GameManager.class);
                 FileIO tempIO = new FileIO();
 
                 Deck deckToLoad = tempIO.readDeck(decks.get(position));
