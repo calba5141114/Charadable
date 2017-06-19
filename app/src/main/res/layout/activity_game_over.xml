@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number Skipped"
+        tools:layout_editor_absoluteX="209dp"
+        tools:layout_editor_absoluteY="295dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number Correct"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="295dp" />
+
+    <TextView
+        android:id="@+id/textNumberSkipped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="324dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cards Skipped"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <TextView
+        android:id="@+id/numberCorrectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="324dp" />
+
+    <Button
+        android:id="@+id/mainMenu"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:text="Main Menu"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="424dp" />
+
+    <Button
+        android:id="@+id/playAgain"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:text="Play Again"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="368dp" />
+
+    <ListView
+        android:id="@+id/listViewSkipped"
+        android:layout_width="345dp"
+        android:layout_height="219dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="57dp" />
+</android.support.constraint.ConstraintLayout>
