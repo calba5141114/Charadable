@@ -1,7 +1,5 @@
 package org.soraneko.www.charadable;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,15 +12,25 @@ import  java.io.ObjectOutputStream;
  * Created by Carlos on 6/13/2017.
  */
 
+/**
+ * Class dedicated to reading and writing Deck files on the device
+ */
+public class FileIO {
 
-public class FileIO extends AppCompatActivity {
-
+    /**
+     * Default constructor of the class
+     */
     public FileIO()
     {
 
     }
 
-    // Use the save decks
+    /**
+     * Used to save deck objects as a file on the device
+     * @param deck Initialized deck object
+     * @param title Name for the file and deck
+     * @param filepath Path to which the file will be written too
+     */
     public void serializeDeck (Deck deck, String title, String filepath){
 
        FileOutputStream fOut = null;
@@ -67,7 +75,11 @@ public class FileIO extends AppCompatActivity {
 
     }
 
-    // Use to read in a Deck object
+    /**
+     * Reading deck files from a File object
+     * @param file File object representing the deck object
+     * @return A Deck object
+     */
     public Deck readDeck(File file)
     {
         Deck temp = null;

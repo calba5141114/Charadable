@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Eric on 6/19/2017.
+ *
+ * This is where the game runs.
+ * Using multithreading, it keeps track the pitch
+ * of the device and conducts the appropriate actions
+ * for the game based on the pitch.
  */
 
 public class Game implements Runnable
@@ -23,6 +28,13 @@ public class Game implements Runnable
     private int numberOfCardsGuessedRight;
     private int numberOfCards;
 
+    /**
+     * Constructor of a Game thread
+     * @param cardView TextView object that will be showing the cards
+     * @param deck ArrayList of strings that represent the card deck
+     * @param skippedCards ArrayList to put in the skipped cards
+     * @param ra Reference to a RunnableAccel thread object
+     */
     public Game(TextView cardView, ArrayList<String> deck, ArrayList<String> skippedCards, RunnableAccel ra)
     {
         cardTextView = cardView;
@@ -35,6 +47,9 @@ public class Game implements Runnable
         Log.e("G", "Game thread object created");
     }
 
+    /**
+     * Starts the Game thread
+     */
     public void start()
     {
         Log.e("G", "Starting a Game thread");
@@ -45,31 +60,53 @@ public class Game implements Runnable
         }
     }
 
+    /**
+     * Stops Game thread
+     */
     public void stop()
     {
         running = false;
     }
 
+    /**
+     * Gets the number of cards guessed right
+     * @return Number of skipped cards
+     */
     public int getNumberOfCardsGuessedRight()
     {
         return numberOfCardsGuessedRight;
     }
 
+    /**
+     * Gets number of skipped cards
+     * @return Number of skipped cards
+     */
     public int getNumberOfSkippedCards()
     {
         return skippedCardsDeck.size();
     }
 
+    /**
+     * Gets the current card being played
+     * @return String with the current card
+     */
     public String getCurrentCard()
     {
         return currentCard;
     }
 
+    /**
+     * Gets the deck of skipped cards
+     * @return ArrayList of skipped cards
+     */
     public ArrayList<String> getSkippedCardsDeck()
     {
         return skippedCardsDeck;
     }
 
+    /**
+     * Proceeds with the next card in the deck
+     */
     private void next()
     {
         if (cardDeck.size() > 0)
@@ -100,6 +137,9 @@ public class Game implements Runnable
 
     }
 
+    /**
+     * Handles actions required when the user skips a card
+     */
     private void skip()
     {
         if (!skippedCardsDeck.contains(currentCard))

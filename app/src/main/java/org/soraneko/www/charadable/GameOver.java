@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Eric on 6/18/2017.
+ *
+ * Handles and displays the information from the game in a post-game view
  */
 
 public class GameOver extends AppCompatActivity

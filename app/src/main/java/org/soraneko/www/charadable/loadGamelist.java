@@ -11,6 +11,10 @@ import android.widget.ListView;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Class used in the menu where the user access the list of decks he/she creates
+ * when they want to play a game
+ */
 public class loadGamelist extends AppCompatActivity {
 
     @Override
@@ -48,6 +52,11 @@ public class loadGamelist extends AppCompatActivity {
 
     }
 
+    /**
+     * Retrives the card deck files from the given path
+     * @param dir A file object pointing to the directory where the card deck files are stored
+     * @return An ArrayList of file objects of the files found in the directory
+     */
     private ArrayList<File> getListFiles(File dir)
     {
         ArrayList<File> inFiles = new ArrayList<File>();

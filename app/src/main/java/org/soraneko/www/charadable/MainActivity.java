@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Main menu of the app
+ */
 public class MainActivity extends AppCompatActivity {
 
     Button createDeckButton;
@@ -21,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         createDeckHandler();
     }
     //loads list of games
+
+    /**
+     * Sets an OnClickListener on loadGameButton
+     */
     public void loadGameHandler (){
         loadGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     //needs functions to work properly
+
+    /**
+     * Sets an OnClickListener on createDeckButton
+     */
     public void createDeckHandler (){
         createDeckButton.setOnClickListener(new View.OnClickListener() {
             @Override

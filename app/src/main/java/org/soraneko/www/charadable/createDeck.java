@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import java.util.ArrayList;
 
+/**
+ * Manages the creation of card Decks based on the user input
+ */
 public class createDeck extends AppCompatActivity {
 
     EditText wordInput;
@@ -30,7 +33,9 @@ public class createDeck extends AppCompatActivity {
 
     ArrayList<String> Cards = new ArrayList<String>();
 
-    //newcardbutton
+    /**
+     * Handles the setting of an OnClickListener for the newCard button
+     */
     public void newCardHandler () {
         newCard.setOnClickListener(new OnClickListener() {
             @Override
@@ -49,7 +54,9 @@ public class createDeck extends AppCompatActivity {
             }
         });}
 
-    //savecardsbutton
+    /**
+     * Handles the setting of an OnClickListener for the saveCards button
+     */
     public void saveCardsHandler (){
         saveCards.setOnClickListener(new OnClickListener() {
             @Override
