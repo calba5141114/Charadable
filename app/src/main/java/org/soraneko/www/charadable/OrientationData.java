@@ -48,7 +48,7 @@ public class OrientationData implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent sensorEvent)
     {
-        pitch = sensorEvent.values[1];
+        pitch = sensorEvent.values[2];
     }
 
     @Override

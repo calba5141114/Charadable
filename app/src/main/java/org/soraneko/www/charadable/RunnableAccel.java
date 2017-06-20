@@ -12,12 +12,13 @@ public class RunnableAccel implements Runnable
 
     private OrientationData orientationData;
     private volatile boolean running = true;
+    private float pitch;
     private Thread t;
 
     public RunnableAccel(OrientationData orienData)
     {
         orientationData = orienData;
-        Log.e("E", "Accelerameter Thread Created");
+        Log.e("E", "Accelerameter Thread Object Created");
     }
 
     public void start()
@@ -36,13 +37,17 @@ public class RunnableAccel implements Runnable
         running = false;
     }
 
+    public float getPitch()
+    {
+        return pitch;
+    }
+
     @Override
     public void run()
     {
         while(running)
         {
-            float pitch = orientationData.getPitch();
-            Log.e("E", Float.toString(pitch));
+            pitch = orientationData.getPitch();
         }
 
         Log.e("E", "Accel thread stopping");

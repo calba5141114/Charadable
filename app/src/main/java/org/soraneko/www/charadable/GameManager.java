@@ -21,8 +21,8 @@ import java.util.Collections;
  *
  * For rotation focus on the pitch of the phone
  * No matter if Yaw is positive or negative, pitch has same effect
- * + pitch tilts device down
- * - pitch tilts device up
+ * + pitch tilts device down (-6.94 -> 45 degrees)
+ * - pitch tilts device up (6.94 -> -45 degrees)
  */
 
 public class GameManager extends AppCompatActivity
@@ -35,9 +35,9 @@ public class GameManager extends AppCompatActivity
     private int numberOfRightCards;
     private OrientationData orientationData;
     private RunnableAccel accelThread;
+    private Game gameThread;
     TextView timer;
     TextView text;
-    Sensor sensor;
 
 
     @Override
@@ -46,9 +46,12 @@ public class GameManager extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_view);
 
+        /**************** Getting TextView components *****************/
         timer = (TextView) findViewById(R.id.timer);
-        text = (TextView) findViewById(R.id.timer);
+        text = (TextView) findViewById(R.id.text);
+        /**************************************************************/
 
+        /**************** SENSOR STUFF *****************/
         SensorManager mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         orientationData = new OrientationData(mSensorManager);
         orientationData.onResume();
@@ -57,37 +60,53 @@ public class GameManager extends AppCompatActivity
 
         Deck deck = (Deck) getIntent().getExtras().get("deck");
         loadDeck(deck);
+        /**********************************************/
 
-        new CountDownTimer(5000, 1000)
+        /**************** Creating Game Thread Stuff *****************/
+        gameThread = new Game(text, cards, skippedCards, accelThread);
+
+        new CountDownTimer(65000, 1000)
         {
             public void onTick(long millisUntilFinished)
             {
-                timer.setText("" + millisUntilFinished / 1000);
-                text.setText("Set device into horizontal position");
+                if ((millisUntilFinished / 1000) == 60)
+                {
+                    /** Starts the Game thread **/
+                    gameThread.start();
+                }
+                else if ((millisUntilFinished / 1000) > 60)
+                {
+                    text.setText("Set device to horizontal position");
+                    timer.setText("" + ((millisUntilFinished / 1000) - 60));
+                }
+                else
+                {
+                    timer.setText("" + millisUntilFinished / 1000);
+                    text.setText(gameThread.getCurrentCard());
+                }
+
+                if (gameThread.getNumberOfCardsGuessedRight() == numberOfCards)
+                {
+                    gameOver();
+                    this.cancel();
+                }
+
+                Log.e("GM", Integer.toString(gameThread.getNumberOfCardsGuessedRight()));
+
             }
 
             public void onFinish()
             {
-                text.setText("GameManager starting");
-            }
-        }.start();
-
-        new CountDownTimer(60000, 1000)
-        {
-            public void onTick(long millisUntilFinished)
-            {
-                timer.setText("" + millisUntilFinished / 1000);
-            }
-
-            public void onFinish()
-            {
-                text.setText("GameManager ended");
                 gameOver();
             }
         }.start();
 
     }
 
+    /**
+     * Loads up the deck from the Deck object passed in
+     * @param deck A initialized deck object with card deck inside
+     */
     private void loadDeck(Deck deck)
     {
         cards = deck.getCardDeck();
@@ -95,13 +114,21 @@ public class GameManager extends AppCompatActivity
         Collections.shuffle(cards);
     }
 
+    /**
+     * Handles things when the game is over
+     */
     private void gameOver()
     {
         Intent loadGameOverIntent = new Intent(GameManager.this, GameOver.class);
+        numberOfSkippedCards = gameThread.getNumberOfSkippedCards();
+        numberOfRightCards = gameThread.getNumberOfCardsGuessedRight();
+        skippedCards = gameThread.getSkippedCardsDeck();
+
         loadGameOverIntent.putExtra("skipped", skippedCards);
         loadGameOverIntent.putExtra("numberOfCards", numberOfCards);
         loadGameOverIntent.putExtra("numberOfSkippedCards", numberOfSkippedCards);
         loadGameOverIntent.putExtra("numberOfRightCards", numberOfRightCards);
+        gameThread.stop();
         accelThread.stop();
         orientationData.onPause();
         startActivity(loadGameOverIntent);

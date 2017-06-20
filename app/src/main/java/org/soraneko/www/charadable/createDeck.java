@@ -57,7 +57,11 @@ public class createDeck extends AppCompatActivity {
             {
                 //does action
                 String name = createTitle.getText().toString();
-                if (name.equals(""))
+                if (Cards.size() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "You need to make at least one card", Toast.LENGTH_SHORT).show();
+                }
+                else if (name.equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "You need a title", Toast.LENGTH_SHORT).show();
                 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,6 +47,9 @@ public class GameOver extends AppCompatActivity
 
         numberSkippedTextView.setText(Integer.toString(numberOfSkippedCards));
         numberRightTextView.setText(Integer.toString(numberOfRightCards));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, skippedCards);
+        skippedCardsListView.setAdapter(adapter);
 
         playAgainButton.setOnClickListener(new View.OnClickListener(){
             @Override
