@@ -1,8 +1,8 @@
 package org.soraneko.www.charadable;
 
 import android.content.Intent;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +36,7 @@ public class GameManager extends AppCompatActivity
     private OrientationData orientationData;
     private RunnableAccel accelThread;
     private Game gameThread;
+    private MediaPlayer endSound;
     TextView timer;
     TextView text;
 
@@ -62,17 +63,26 @@ public class GameManager extends AppCompatActivity
         loadDeck(deck);
         /**********************************************/
 
+        /**************** SOUND STUFF *****************/
+        //https://stackoverflow.com/questions/20644230/raw-cannot-be-resolved-or-is-not-a-field
+        MediaPlayer nextSound = MediaPlayer.create(GameManager.this, R.raw.nextsound);
+        MediaPlayer skipSound = MediaPlayer.create(GameManager.this, R.raw.skipsound);
+        endSound = MediaPlayer.create(GameManager.this, R.raw.endsound);
+        /**********************************************/
+
         /**************** Creating Game Thread Stuff *****************/
-        gameThread = new Game(text, cards, skippedCards, accelThread);
+        gameThread = new Game(text, cards, skippedCards, accelThread, nextSound, skipSound);
 
         new CountDownTimer(65000, 1000)
         {
+
             public void onTick(long millisUntilFinished)
             {
                 if ((millisUntilFinished / 1000) == 60)
                 {
                     /** Starts the Game thread **/
                     gameThread.start();
+
                 }
                 else if ((millisUntilFinished / 1000) > 60)
                 {
@@ -131,6 +141,7 @@ public class GameManager extends AppCompatActivity
         gameThread.stop();
         accelThread.stop();
         orientationData.onPause();
+        endSound.start();
         startActivity(loadGameOverIntent);
     }
 

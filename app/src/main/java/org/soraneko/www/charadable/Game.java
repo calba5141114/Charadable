@@ -1,9 +1,9 @@
 package org.soraneko.www.charadable;
 
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.lang.invoke.VolatileCallSite;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +22,8 @@ public class Game implements Runnable
     private ArrayList<String> cardDeck;
     private ArrayList<String> skippedCardsDeck;
     private RunnableAccel runnableAccel;
+    private MediaPlayer nextSound;
+    private MediaPlayer skipSound;
     private String currentCard;
     private volatile boolean running = true;
     private Thread t;
@@ -34,8 +36,10 @@ public class Game implements Runnable
      * @param deck ArrayList of strings that represent the card deck
      * @param skippedCards ArrayList to put in the skipped cards
      * @param ra Reference to a RunnableAccel thread object
+     * @param nextSound MediaPlayer object loaded with the sound when user proceeds with the next card
+     * @param skipSound MediaPlayer object loaded with the sound when user skips a card
      */
-    public Game(TextView cardView, ArrayList<String> deck, ArrayList<String> skippedCards, RunnableAccel ra)
+    public Game(TextView cardView, ArrayList<String> deck, ArrayList<String> skippedCards, RunnableAccel ra, MediaPlayer nextSound, MediaPlayer skipSound)
     {
         cardTextView = cardView;
         cardDeck = deck;
@@ -44,6 +48,8 @@ public class Game implements Runnable
         numberOfCards = cardDeck.size();
         currentCard = cardDeck.get(0);
         skippedCardsDeck = new ArrayList<String>();
+        this.nextSound = nextSound;
+        this.skipSound = skipSound;
         Log.e("G", "Game thread object created");
     }
 
@@ -125,7 +131,7 @@ public class Game implements Runnable
             } catch (IndexOutOfBoundsException ex) {
                 Log.e("G", "No more cards in the deck!");
             }
-
+            nextSound.start();
             // Gives time for the user to reposition the device
             try
             {
@@ -148,6 +154,7 @@ public class Game implements Runnable
         }
         cardDeck.add(cardDeck.remove(0));
         currentCard = cardDeck.get(0);
+        skipSound.start();
     }
 
     @Override
