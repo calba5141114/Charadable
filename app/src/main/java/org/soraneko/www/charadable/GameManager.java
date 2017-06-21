@@ -36,7 +36,6 @@ public class GameManager extends AppCompatActivity
     private OrientationData orientationData;
     private RunnableAccel accelThread;
     private Game gameThread;
-    private MediaPlayer endSound;
     TextView timer;
     TextView text;
 
@@ -65,9 +64,9 @@ public class GameManager extends AppCompatActivity
 
         /**************** SOUND STUFF *****************/
         //https://stackoverflow.com/questions/20644230/raw-cannot-be-resolved-or-is-not-a-field
-        MediaPlayer nextSound = MediaPlayer.create(GameManager.this, R.raw.nextsound);
+        MediaPlayer nextSound = MediaPlayer.create(GameManager.this, R.raw.rightsound);
         MediaPlayer skipSound = MediaPlayer.create(GameManager.this, R.raw.skipsound);
-        endSound = MediaPlayer.create(GameManager.this, R.raw.endsound);
+        //endSound = MediaPlayer.create(GameManager.this, R.raw.endsound);
         /**********************************************/
 
         /**************** Creating Game Thread Stuff *****************/
@@ -86,7 +85,7 @@ public class GameManager extends AppCompatActivity
                 }
                 else if ((millisUntilFinished / 1000) > 60)
                 {
-                    text.setText("Set device to horizontal position");
+                    text.setText("Hold device on forehead");
                     timer.setText("" + ((millisUntilFinished / 1000) - 60));
                 }
                 else
@@ -95,7 +94,7 @@ public class GameManager extends AppCompatActivity
                     text.setText(gameThread.getCurrentCard());
                 }
 
-                if (gameThread.getNumberOfCardsGuessedRight() == numberOfCards)
+                if (gameThread.getNumberOfCardsGuessedRight() == numberOfCards || gameThread.getNumberOfCards() == 0)
                 {
                     gameOver();
                     this.cancel();
@@ -133,15 +132,15 @@ public class GameManager extends AppCompatActivity
         numberOfSkippedCards = gameThread.getNumberOfSkippedCards();
         numberOfRightCards = gameThread.getNumberOfCardsGuessedRight();
         skippedCards = gameThread.getSkippedCardsDeck();
+        int overallScore = numberOfRightCards - numberOfSkippedCards;
 
         loadGameOverIntent.putExtra("skipped", skippedCards);
-        loadGameOverIntent.putExtra("numberOfCards", numberOfCards);
+        loadGameOverIntent.putExtra("overallScore", overallScore);
         loadGameOverIntent.putExtra("numberOfSkippedCards", numberOfSkippedCards);
         loadGameOverIntent.putExtra("numberOfRightCards", numberOfRightCards);
         gameThread.stop();
         accelThread.stop();
         orientationData.onPause();
-        endSound.start();
         startActivity(loadGameOverIntent);
     }
 

@@ -21,12 +21,14 @@ public class GameOver extends AppCompatActivity
 {
 
     private ArrayList<String> skippedCards;
-    private int numberOfCards;
+    private int overallScore;
     private int numberOfSkippedCards;
     private int numberOfRightCards;
     ListView skippedCardsListView;
     TextView numberSkippedTextView;
     TextView numberRightTextView;
+    TextView noSkippedCardsView;
+    TextView overallScoreTextView;
     Button playAgainButton;
     Button mainMenuButton;
 
@@ -37,21 +39,31 @@ public class GameOver extends AppCompatActivity
         setContentView(R.layout.activity_game_over);
 
         skippedCards = (ArrayList<String>) getIntent().getExtras().get("skipped");
-        numberOfCards = (int) getIntent().getExtras().get("numberOfCards");
+        overallScore = (int) getIntent().getExtras().get("overallScore");
         numberOfSkippedCards = (int) getIntent().getExtras().get("numberOfSkippedCards");
         numberOfRightCards = (int) getIntent().getExtras().get("numberOfRightCards");
 
         skippedCardsListView = (ListView)findViewById(R.id.listViewSkipped);
         numberSkippedTextView = (TextView) findViewById(R.id.textNumberSkipped);
         numberRightTextView = (TextView) findViewById(R.id.numberCorrectTextView);
+        noSkippedCardsView = (TextView) findViewById(R.id.noSkippedCardsTextView);
+        overallScoreTextView = (TextView) findViewById(R.id.overallScoreTextView);
         playAgainButton = (Button) findViewById(R.id.playAgain);
         mainMenuButton = (Button) findViewById(R.id.mainMenu);
 
         numberSkippedTextView.setText(Integer.toString(numberOfSkippedCards));
         numberRightTextView.setText(Integer.toString(numberOfRightCards));
+        overallScoreTextView.setText(Integer.toString(overallScore));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, skippedCards);
-        skippedCardsListView.setAdapter(adapter);
+        if (numberOfSkippedCards == 0)
+        {
+            noSkippedCardsView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, skippedCards);
+            skippedCardsListView.setAdapter(adapter);
+        }
 
         playAgainButton.setOnClickListener(new View.OnClickListener(){
             @Override

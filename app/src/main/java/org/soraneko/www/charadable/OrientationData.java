@@ -19,11 +19,13 @@ public class OrientationData implements SensorEventListener
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private float[] mGravity;
-    private float[] mGeomagnetic;
-    private float azimut;
+    private Sensor mMagnometer;
     private float pitch;
-    private float roll;
+    private final float[] mAccelerometerReading = new float[3];
+    private final float[] mMagnetometerReading = new float[3];
+
+    private final float[] mRotationMatrix = new float[9];
+    private final float[] mOrientationAngles = new float[3];
 
     /**
      * Default constructor of the class
@@ -33,6 +35,7 @@ public class OrientationData implements SensorEventListener
     {
         mSensorManager = senManager;
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        //mMagnometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
     /**
@@ -40,7 +43,8 @@ public class OrientationData implements SensorEventListener
      */
     public void onResume()
     {
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        //mSensorManager.registerListener(this, mMagnometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
     /**
@@ -57,13 +61,33 @@ public class OrientationData implements SensorEventListener
      */
     public float getPitch()
     {
+        /*
+        mSensorManager.getRotationMatrix(mRotationMatrix, null,
+                mAccelerometerReading, mMagnetometerReading);
+
+        mSensorManager.getOrientation(mRotationMatrix, mOrientationAngles);
+
+        pitch = mOrientationAngles[1];
+        */
+
         return pitch;
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent)
     {
+        /*
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            System.arraycopy(sensorEvent.values, 0, mAccelerometerReading,
+                    0, mAccelerometerReading.length);
+        }
+        else if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            System.arraycopy(sensorEvent.values, 0, mMagnetometerReading,
+                    0, mMagnetometerReading.length);
+        }
+        */
         pitch = sensorEvent.values[2];
+
     }
 
     @Override

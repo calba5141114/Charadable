@@ -1,6 +1,7 @@
 package org.soraneko.www.charadable;
 
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -36,8 +37,6 @@ public class Game implements Runnable
      * @param deck ArrayList of strings that represent the card deck
      * @param skippedCards ArrayList to put in the skipped cards
      * @param ra Reference to a RunnableAccel thread object
-     * @param nextSound MediaPlayer object loaded with the sound when user proceeds with the next card
-     * @param skipSound MediaPlayer object loaded with the sound when user skips a card
      */
     public Game(TextView cardView, ArrayList<String> deck, ArrayList<String> skippedCards, RunnableAccel ra, MediaPlayer nextSound, MediaPlayer skipSound)
     {
@@ -111,10 +110,40 @@ public class Game implements Runnable
     }
 
     /**
+     * Gets the number of cards left in the deck
+     * @return Number of cards left in the deck
+     */
+    public int getNumberOfCards()
+    {
+        return cardDeck.size();
+    }
+
+    /**
      * Proceeds with the next card in the deck
      */
     private void next()
     {
+        if (cardDeck.size() > 0)
+        {
+            cardDeck.remove(0);
+            numberOfCardsGuessedRight++;
+            try
+            {
+                currentCard = cardDeck.get(0);
+                nextSound.start();
+            } catch (IndexOutOfBoundsException ex) {
+                Log.e("G", "No more cards in the deck!");
+            }
+
+            // Gives time for the user to reposition the device
+            try
+            {
+                t.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        /*
         if (cardDeck.size() > 0)
         {
             if (skippedCardsDeck.contains(currentCard))
@@ -128,19 +157,20 @@ public class Game implements Runnable
             try
             {
                 currentCard = cardDeck.get(0);
+                nextSound.start();
             } catch (IndexOutOfBoundsException ex) {
                 Log.e("G", "No more cards in the deck!");
             }
-            nextSound.start();
+
             // Gives time for the user to reposition the device
             try
             {
-                t.sleep(1000);
+                t.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
+        */
     }
 
     /**
@@ -152,9 +182,22 @@ public class Game implements Runnable
         {
             skippedCardsDeck.add(currentCard);
         }
-        cardDeck.add(cardDeck.remove(0));
-        currentCard = cardDeck.get(0);
-        skipSound.start();
+        //cardDeck.add(cardDeck.remove(0));
+        cardDeck.remove(0);
+        try
+        {
+            currentCard = cardDeck.get(0);
+            skipSound.start();
+        } catch (IndexOutOfBoundsException ex) {
+            Log.e("G", "No more cards in the deck!");
+        }
+        // Gives time for the user to reposition the device
+        try
+        {
+            t.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -164,18 +207,19 @@ public class Game implements Runnable
         {
             float pitch = runnableAccel.getPitch();
             // If the pitch is less than -6.94 m/s^2, the person guessed the card right
-            if (pitch < -6.94)
+            if (pitch < -8)
             {
                 Log.e("G", "Person says he/she got it right");
+                Log.e("G", "Pitch: " + Float.toString(pitch));
                 next();
             }
             //If the pitch is greater than 6.94 m/s^S, the person is skipping the card
-            if (pitch > 6.94)
+            if (pitch > 8)
             {
-                Log.e("G", "Person says he/she skips" + " Pitch: " + Float.toString(pitch));
+                Log.e("G", "Person says he/she skips");
+                Log.e("G", "Pitch: " + Float.toString(pitch));
                 skip();
             }
-
         }
 
         Log.e("G", "Accel thread stopping");
