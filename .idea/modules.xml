@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Charadable.iml" filepath="$PROJECT_DIR$/Charadable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Charadable-app.iml" filepath="$PROJECT_DIR$/app/Charadable-app.iml" group="Charadable/app" />
+      <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.23.0/Charadable-facebook-android-sdk-4.23.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.23.0/Charadable-facebook-android-sdk-4.23.0.iml" group="Charadable/facebook-android-sdk-4.23.0" />
+      <module fileurl="file://$PROJECT_DIR$/Desktop-Charadable.iml" filepath="$PROJECT_DIR$/Desktop-Charadable.iml" group="Charadable" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.23.0/facebook-android-sdk-4.23.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.23.0/facebook-android-sdk-4.23.0.iml" />
     </modules>
